@@ -48,6 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					"phone": phone,
 					"email": email,
 					"address": address,
+					
 				}
 
 				const config = { 
@@ -64,7 +65,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(() => getActions().getContactList())
 				.catch(error => { console.error('Error fetching contacts:', error); });
 			},
+			
+			deleteContact: (id) => {
+				const store = getStore();
+				fetch(`https://playground.4geeks.com/contact/agendas/${store.user.slug}/contacts/${id}`, {
+					method: 'DELETE'
+				})
+				.then(response => {
+					console.log("Response status:", response.status);
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					// No intentes analizar la respuesta si recibes un código 204
+					if (response.status !== 204) {
+						return response.json();
+					}
+				})
+				.then(() => {
+					const updatedContacts = store.contacts.filter(contact => contact.id !== id);
+					setStore({ contacts: updatedContacts });
+getActions().getContactList()
+				})
+				.catch(error => { 
+					console.error('Error deleting contact:', error); 
+				});
+			},
 
+
+
+
+				
+
+				
 
 			cambiarTexto: () => {
 				console.log("cambia el texto");
