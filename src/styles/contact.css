@@ -1,0 +1,21 @@
+.list-group-item {
+    width: auto;
+}
+li button {
+    background-color: transparent;
+    border: none;
+}
+
+.fa-circle-user {
+    color: rgb(0, 0, 0);
+    font-size: 5em;
+}
+
+.image {
+    padding: 1em;
+}
+img {
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    border: 4px solid yellow;
+}

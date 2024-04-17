@@ -4,3 +4,19 @@ ul {
     color: white;
     width: 400px;
 }
+
+.btn-success {
+    margin: 0.8em;
+    
+}
+.navbar {
+    background-color: #f9bc60;
+}
+.navbar-brand {
+    padding-left: 3em;
+    
+    text-decoration: none;
+}
+body {
+    background-color: #faeee7;
+}

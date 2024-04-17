@@ -1,0 +1,23 @@
+#formulario {
+    background-color: white;
+    padding: 2em;
+    border: 1px solid grey;
+}
+h1 {
+    text-align: center;
+}
+input {
+    border-radius: 3px;
+    border: 1px solid grey;
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em 0 0.5em 1em;
+}
+label {
+    font-weight: 600;
+}
+.btn {
+    font-weight: bold;
+}
+span {
+    font-weight: bold;
+}

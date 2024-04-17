@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import "../../styles/home.css";
+import Users from "./users";
+import CreateUserForm from "./newUser";
 
 export const Navbar = () => {
 	const {store, actions} = useContext(Context)
@@ -12,22 +15,16 @@ export const Navbar = () => {
         
     }, [store.user])
 	return (
-		<nav className="navbar navbar-light bg-light mb-3">
+		<nav className="navbar navbar-light mb-3">
+			<Users/>
+			<CreateUserForm/>
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">{`Contact List of: ${username}`}</span>
+				<span className="navbar-brand mb-0 h1">{`Agenda of: ${username}`}</span>
 			</Link>
-			<div className="ml-auto">
-			{store.mensaje}
-				
-			</div>
-			<div className="users-text">
-                <p>Select a User:</p>
-                <select >
-                    <option value="">User</option>
-                    
-                </select>
-				<button onClick={actions.showUsers}>Usuarios totales</button>
-                </div>
+			
+			
+
+
 		</nav>
 	);
 };

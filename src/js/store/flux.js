@@ -16,19 +16,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 			 // Mostrar usuarios de la API (GET)
 
 			showUsers: () => {
-				fetch("https://playground.4geeks.com/contact/agendas?offset=0&limit=100")
-				.then(response => response.json)
-				.then(data => {
-					console.log(data.agendas)})
-				.catch(error => { console.error('Error fetching users:', error); })
+				fetch(`https://playground.4geeks.com/contact/agendas?offset=0&limit=100`)
+				.then(response => { return response.json(); })
+				.then(data => { setStore({ "users": [getStore(), ...data.agendas] }) })
+				.catch(error => { console.error('Error fetching users:', error); });
 			},
 
+			// Mostrar usuario seleccionado 
+			getSelectedUser: (value) => {
+				const [slug, id] = value.split("_");
+				const selectedUser = { slug, id };
+				setStore({ user: selectedUser });
+			},
+			// Mostrar lista de contactos del usuario 
 			getContactList: () => {
 				fetch(`https://playground.4geeks.com/contact/agendas/${getStore().user.slug}/contacts`)
 				.then(response => { return response.json(); })
 				.then(data => { setStore({ "contacts": data.contacts }); })
 				.catch(error => { console.error('Error fetching contacts:', error); });
 			},
+
+			//Crear usuario
 			newUser: (username) => {
 				const config = { 
 					method: "POST",
@@ -37,10 +45,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				fetch(`https://playground.4geeks.com/contact/agendas/${username}`, config)
-				.then(() => { getActions().loadContactList(username); setStore({ "user": username }); })
+				.then(() => { getActions().getContactList(username); setStore({ "user": username }); })
 				.catch(error => { console.error('Error fetching contacts:', error); });
 			},
-
+			// Crear contacto
 			newContact: (name, email, phone, address) => {
 				
 				const contact = {
@@ -66,6 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch(error => { console.error('Error fetching contacts:', error); });
 			},
 			
+			// Borrar contacto
 			deleteContact: (id) => {
 				const store = getStore();
 				fetch(`https://playground.4geeks.com/contact/agendas/${store.user.slug}/contacts/${id}`, {
@@ -84,24 +93,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(() => {
 					const updatedContacts = store.contacts.filter(contact => contact.id !== id);
 					setStore({ contacts: updatedContacts });
-getActions().getContactList()
+					getActions().getContactList()
 				})
 				.catch(error => { 
 					console.error('Error deleting contact:', error); 
 				});
 			},
 
-
-
-
-				
-
-				
-
-			cambiarTexto: () => {
-				console.log("cambia el texto");
-				setStore({mensaje: "nuevo mensaje"})
-			},
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))

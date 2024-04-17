@@ -7,9 +7,9 @@ const ContactList = () => {
     return(
         <>
 
-        <h1>lista de contactos</h1>
-        <div className="container" style={{background: "red"}}>
-        <div style={{background: "pink" }} className="d-flex flex-column align-items-center justify-content-center">
+        
+        <div className="container">
+        <div className="d-flex flex-column align-items-center justify-content-center">
 
             <Contact/>
             
